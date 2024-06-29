@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Question Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://wallpapers.com/images/high/pile-of-instagram-icons-opg56e9a0jo15hvy.webp'); /* Adjust the path as per your project structure */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #343a40;
+        }
+
+        label {
+            font-size: 18px;
+            color: #495057;
+        }
+
+        .radio-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        button:hover:enabled {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function enableButton() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            const button = document.querySelector('button');
+            let checked = false;
+
+            radios.forEach((radio) => {
+                if (radio.checked) {
+                    checked = true;
+                }
+            });
+
+            button.disabled = !checked;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach((radio) => {
+                radio.addEventListener('change', enableButton);
+            });
+            enableButton(); // Initialize button state
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2 th:text="${id} +'.'+${ques}"></h2>
+    <form action="/next" method="post">
+        <div class="radio-group">
+            <input type="radio" id="option1" name="option" th:value="${op1}">
+            <label for="option1"><span th:text="${op1}"></span></label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="option2" name="option" th:value="${op2}">
+            <label for="option2"><span th:text="${op2}"></span></label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="option3" name="option" th:value="${op3}">
+            <label for="option3"><span th:text="${op3}"></span></label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="option4" name="option" th:value="${op4}">
+            <label for="option4"><span th:text="${op4}"></span></label>
+        </div>
+        <button type="submit" disabled>Next</button>
+    </form>
+</div>
+</body>
+</html>
